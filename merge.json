@@ -1,0 +1,33 @@
+[
+    {
+        "type":"readers.las",
+        "filename":"BrownsValley_09_2014-GroundFilter.laz"
+    },
+    {
+        "type":"filters.range",
+        "limits":"Classification[2:2]"
+    },
+    {
+        "type":"filters.sample",
+        "radius":0.5
+    },
+    {
+        "type":"filters.crop",
+        "bounds":"([556628,558725],[4238931,4240976])"
+    },
+    {
+        "type":"readers.las",
+        "filename":"BrownsValley_09_2014-PlaneFilter.laz"
+    },
+    {
+        "type":"filters.crop",
+        "bounds":"([556628,558725],[4238931,4240976])"
+    },
+    {
+        "type":"filters.merge"
+    },
+    {
+        "type":"writers.las",
+        "filename":"BrownsValley_09_2014-GroundAndPlanes.laz"
+    }
+]
