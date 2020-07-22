@@ -1,31 +1,34 @@
 import json
-import pdal
+import re
 import numpy as np
 import matplotlib.pyplot as plt
-import re
-
+import pdal
+import time
 
 window_size = 200
-step_size = 400
+step_size = 100
+pre_event_index = './BrownsValley_06_2014/ept.json'
+post_event_index = './BrownsValley_09_2014/ept.json'
 
 X = []
 Y = []
-u = []
-v = []
-for x in np.arange(556627 ,558726, step_size):
+dx = []
+dy = []
+for x in np.arange(556627, 558726, step_size):
     for y in np.arange(4238930, 4240977, step_size):
+        s = time.time()
         pipeline = [
             {
                 'type':'readers.ept',
-                'filename':'./BrownsValley_09_2014/ept.json',
-                'bounds':'([{},{}],[{},{}])'.format(x,
-                                                    x + window_size,
-                                                    y,
-                                                    y + window_size)
+                'filename':post_event_index,
+                'bounds':'([{},{}],[{},{}])'.format(x - 2,
+                                                    x + window_size + 2,
+                                                    y - 2,
+                                                    y + window_size + 2)
             },
             {
                 'type':'readers.ept',
-                'filename':'./BrownsValley_06_2014/ept.json',
+                'filename':pre_event_index,
                 'bounds':'([{},{}],[{},{}])'.format(x,
                                                     x + window_size,
                                                     y,
@@ -40,16 +43,13 @@ for x in np.arange(556627 ,558726, step_size):
         p.execute()
         m = json.loads(p.metadata)
         t = m.get('metadata').get('filters.icp')[0].get('transform')
-        # Insert missing spaces between transform matrix rows
-        t = re.sub(r'(\d)(\d\.)', r'\1 \2', t)
-        t = re.sub(r'(\d)(\-\d)', r'\1 \2', t)
         t = [float(val) for val in t.split()]
         X.append(x + window_size/2)
         Y.append(y + window_size/2)
-        u.append(t[3])
-        v.append(t[7])
+        dx.append(t[3])
+        dy.append(t[7])
 
 plt.figure()
-plt.quiver(X, Y, u, v, angles='xy', scale_units='xy')
+plt.quiver(X, Y, dx, dy, angles='xy', scale_units='xy')
 plt.axis('equal')
 plt.show()
