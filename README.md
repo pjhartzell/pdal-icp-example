@@ -15,4 +15,4 @@ PDAL's Python extension was used to apply ICP to moving windows of the prepared 
 
 ## Sample result
 ICP solutions were generated with a 200 meter window and 100 meter step size and are shown in the image below. Note that differences with the published image are a result of uncorrected datum errors that exist in the raw lidar point clouds. These datum errors were estimated and removed in the published image by removing the mean motion on the west side of the fault from all vectors. See [Brocher et al. (2015)](https://doi.org/10.1785/0220150004) for details on the Napa earthquake. Spurious vector solutions in the southeast corner caused by a gap in point cloud data were also removed in the published image.
-![sample icp results](icp_vectors.png)
+![sample icp results](img/icp_vectors.png)
