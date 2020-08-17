@@ -5,7 +5,7 @@
     },
     {
         "type":"filters.sample",
-        "radius":"0.5"
+        "radius":0.5
     },
     {
         "type":"filters.hag_nn"

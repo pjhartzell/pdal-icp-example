@@ -1,7 +1,7 @@
 [
     {
         "type":"readers.las",
-        "filename":"BrownsValley_09_2014.laz"
+        "filename":"BrownsValley_09_2014_AllPoints.laz"
     },
     {
         "type":"filters.assign",
